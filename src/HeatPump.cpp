@@ -734,8 +734,10 @@ int HeatPump::readPacket() {
               receivedStatus.operating = data[4];
               receivedStatus.compressorFrequency = data[3];
 
-              // callback for status change -- not triggered for compressor frequency at the moment
-              if(statusChangedCallback && currentStatus.operating != receivedStatus.operating) {
+              // callback for status change
+              if(statusChangedCallback && 
+                 (currentStatus.operating != receivedStatus.operating ||
+                  currentStatus.compressorFrequency != receivedStatus.compressorFrequency)) {
                 currentStatus.operating = receivedStatus.operating;
                 currentStatus.compressorFrequency = receivedStatus.compressorFrequency;
                 statusChangedCallback(currentStatus);

@@ -75,6 +75,8 @@ struct heatpumpStatus {
   bool operating; // if true, the heatpump is operating to reach the desired temperature
   heatpumpTimers timers;
   int compressorFrequency;
+  int compressorState;
+  int fanMode;
 };
 
 #define MAX_FUNCTION_CODE_COUNT 30

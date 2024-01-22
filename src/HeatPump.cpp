@@ -750,6 +750,15 @@ int HeatPump::readPacket() {
             }
 
             case 0x09: { // standby mode maybe?
+              int fanMode = data[4];
+              int compressorState = data[3];
+              bool needsPublish = currentStatus.fanMode != fanMode || currentStatus.compressorState != compressorState;
+              
+              currentStatus.fanMode = fanMode;
+              currentStatus.compressorState = compressorState;
+              if (needsPublish && statusChangedCallback) {
+                statusChangedCallback(currentStatus);
+              }
               break;
             }
             
